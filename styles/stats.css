@@ -6,7 +6,7 @@
 }
 
 
-#stats-item {
+.stats-item {
     background-color: #fefefe;
     border-radius: 5px;
     padding: 0.8rem;
@@ -21,7 +21,7 @@
 }
 
 
-#click-items {
+.click-items {
     display: flex;
     justify-content: space-between;
 }
