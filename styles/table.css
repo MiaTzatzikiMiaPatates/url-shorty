@@ -1,11 +1,10 @@
-#groups-header {
+.groups-header {
     display: flex;
     justify-content: space-evenly;
     margin-top: 6rem;
 }
 
-
-#groups-main button {
+.groups-main button {
     padding: 0.7rem 2rem 0.7rem 2rem;
     border: none;
     border-radius: 10px;
@@ -13,23 +12,20 @@
     margin-left: 1rem;
 }
 
-#groups-table {
-    /* margin-left: auto;
-    margin-right: auto; */
+.groups-table {
     margin: 5rem auto 0 auto;
     border-collapse: collapse;
     width: 70%;
 }
 
-#groups-table tr {
+.groups-table tr {
     border-bottom: 1px solid #ddd;
 }
 
-#groups-table th, #groups-table td {
+.groups-table th, .groups-table td {
     padding: 0.6rem;
     text-align:center;
 } 
-
 
 .add-group-button {
     background-color: dodgerblue;
@@ -43,3 +39,6 @@
     background-color: tomato;
 }
 
+#edit-button {
+    background-color: aquamarine;
+}

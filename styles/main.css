@@ -1,6 +1,7 @@
 @import url('nav.css');
 @import url('index.css');
-@import url('groups.css');
+@import url('table.css');
+@import url('stats.css');
 
 :root {
     --black: rgb(39, 38, 38);
@@ -11,7 +12,6 @@
 * {
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    /* text-shadow: 1px 1px 1px rgb(128, 127, 127); */
     text-decoration: none;
     color: var(--black);
 }
@@ -40,13 +40,16 @@ main > h1 {
     color: var(--black);
 }
 
-
-/* #short-button-form:hover {
-    filter: brightness(80%);
-    cursor: pointer;
-} */
-
 button:hover {
     filter: brightness(80%);
     cursor: pointer;
+    transform: scale(1.1);
+}
+
+button:active {
+    transform: scale(0.9);
+}
+
+a[href="#"] {
+    font-weight: bold;
 }

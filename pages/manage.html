@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Short</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="../index.html">Short</a>
+            <ul id="navbar-list">
+                <li><a href="groups.html">Groups</a></li>
+                <li><a href="#">Manage</a></li>
+                <li><a href="stats.html">Stats</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="groups-main">
+        <div class="groups-header">
+            <h1>Manage URLs</h1>
+            <button type="submit" class="add-group-button">+ Shorten New URL</button>
+        </div>
+
+        <table class="groups-table">
+            <tr>
+                <th>Short URL</th>
+                <th>Original URL</th>
+                <th>Group</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>http://short.url</td>
+                <td>http://long.url</td>
+                <td>Random</td>
+                <td><button type="submit" id="edit-button">Edit</button> <button type="submit" id="delete-button">Delete</button></td>
+            </tr>
+        </table>
+    </main>
+</body>
+
+</html>

@@ -12,19 +12,19 @@ main input[type=text]::placeholder {
 }
 
 
-#second-row {
+#url-type-items {
     display: flex;
     justify-content: center;
 }
 
 
-#second-row > select, #second-row input[type=text] {
+#url-type-items > select, #url-type-items input[type=text] {
     width: 14.5%;
     margin-top: 1rem;
 }
 
 
-#second-row input[type=text] {
+#url-type-items input[type=text] {
     margin-right: 1%;
 }
 
