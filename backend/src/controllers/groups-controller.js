@@ -1,6 +1,6 @@
 import statusCodes from "http-status-codes";
 import * as groupsService from "../services/groups-service.js";
-
+import { validate } from "../utils/validator.js";
 
 export const getAllGroups = (req, res) => {
     const groups = groupsService.getAllGroups();
@@ -14,11 +14,12 @@ export const getAllGroups = (req, res) => {
 export const addGroup = (req, res) => {
     const { name }  = req.body;
 
-    if (typeof name !== "string" || name === "") {
-        res
-            .status(statusCodes.BAD_REQUEST)
-            .json({error: "Missing required field: name"});
-    }
+    validate(res, {name}, "string");
+    // if (typeof name !== "string" || name === "") {
+    //     res
+    //         .status(statusCodes.BAD_REQUEST)
+    //         .json({error: "Missing required field: name"});
+    // }
 
     groupsService.addGroup(name)
 
@@ -32,15 +33,18 @@ export const renameGroup = (req, res) => {
     const { name } = req.body;
     const { id } = req.params;
 
-    if (typeof name !== "string" || name === "") {
-        res
-            .status(statusCodes.BAD_REQUEST)
-            .json({error: "Missing required field: name"});
-    } else if (isNaN(id)) {
-        res
-            .status(statusCodes.BAD_REQUEST)
-            .json({error: "Parameter id should be of type int"});
-    }
+    validate(res, { name }, "string");
+    validate(res, { id }, "number");
+
+    // if (typeof name !== "string" || name === "") {
+    //     res
+    //         .status(statusCodes.BAD_REQUEST)
+    //         .json({error: "Missing required field: name"});
+    // } else if (isNaN(id)) {
+    //     res
+    //         .status(statusCodes.BAD_REQUEST)
+    //         .json({error: "Parameter id should be of type int"});
+    // }
 
     groupsService.renameGroup(name, id);
 
@@ -51,11 +55,12 @@ export const renameGroup = (req, res) => {
 export const deleteGroup = (req, res) => {
     const { id } = req.params;
 
-    if (isNaN(id)) {
-        res
-            .status(statusCodes.BAD_REQUEST)
-            .json({error: "Parameter id should be of type int"});
-    }
+    validate(res, { id }, "number");
+    // if (isNaN(id)) {
+    //     res
+    //         .status(statusCodes.BAD_REQUEST)
+    //         .json({error: "Parameter id should be of type int"});
+    // }
 
     groupsService.deleteGroup(id);
 
