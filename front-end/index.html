@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css" type="text/css">
+    <title>URL Short</title>
+    <script defer src="scripts/hamburger-menu.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#">Short</a>
+
+            <button id="menu-toggle">---</button>
+
+            <ul id="navbar-list">
+                <li><a href="pages/groups.html">Groups</a></li>
+                <li><a href="pages/manage.html">Manage</a></li>
+                <li><a href="pages/stats.html">Stats</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>URL Short</h1>
+
+        <form id="short-url-form">
+            <input type="text" placeholder="Enter URL" id="url-input">
+            <div id="url-type-items">
+                <input type="text" placeholder="Custom URL">
+                <select name="groups" id="">
+                    <option value="" selected>Select a Group</option>
+                </select>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+</body>
+
+</html>

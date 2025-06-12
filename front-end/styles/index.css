@@ -1,0 +1,81 @@
+#url-input {
+    width: 30%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
+    margin-top: 2rem;
+}
+
+
+main input[type=text]::placeholder {
+    font-size: 1rem;
+}
+
+
+#url-type-items {
+    display: flex;
+    justify-content: center;
+}
+
+
+#url-type-items > select, #url-type-items input[type=text] {
+    width: 14.5%;
+    margin-top: 1rem;
+}
+
+
+#url-type-items input[type=text] {
+    margin-right: 1%;
+}
+
+
+
+#short-url-form input[type=text], select {
+    padding: 0.8rem;
+    border: 1px solid var(--black);
+    border-radius: 5px;
+}
+
+
+#short-url-form button[type=submit] {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin: 1rem auto 0 auto;
+    padding: 0.7rem 2rem 0.7rem 2rem;
+    border: none;
+    border-radius: 10px;
+    background-color: dodgerblue;
+    color: var(--black);
+}
+
+
+#short-url-form button[type=submit]:hover {
+    filter: brightness(80%);
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 720px) {
+
+    #url-input {
+        width: 90%;
+    }
+
+    #url-type-items {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #url-type-items > select,
+    #url-type-items input[type=text] {
+        width: 90%;
+        margin-top: 1rem;
+        margin-right: 0;
+    }
+
+    #short-url-form button[type=submit] {
+        width: 90%;
+    }
+}

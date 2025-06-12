@@ -1,0 +1,68 @@
+.table-data-header {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 6rem;
+}
+
+.table-data-main button {
+    padding: 0.7rem 2rem 0.7rem 2rem;
+    border: none;
+    border-radius: 10px;
+    color: var(--black);
+    margin-left: 1rem;
+}
+
+.table-data {
+    margin: 5rem auto 0 auto;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+.table-data tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.table-data th, .table-data td {
+    padding: 0.6rem;
+    text-align:center;
+} 
+
+.add-button {
+    background-color: dodgerblue;
+}
+
+.rename-button {
+    background-color: gold;
+}
+
+.delete-button {
+    background-color: tomato;
+}
+
+.edit-button {
+    background-color: aquamarine;
+}
+
+
+@media (max-width: 720px) {
+    .table-data {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+
+    .table-data-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .table-data th, .table-data td {
+        padding: 0.8rem 0.4rem;
+        font-size: 0.9rem;
+    }
+
+    .table-data-main button {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
