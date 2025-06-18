@@ -39,8 +39,6 @@ main input[type=text]::placeholder {
 
 #short-url-form button[type=submit] {
     display: block;
-    margin-right: auto;
-    margin-left: auto;
     margin: 1rem auto 0 auto;
     padding: 0.7rem 2rem 0.7rem 2rem;
     border: none;
@@ -53,6 +51,13 @@ main input[type=text]::placeholder {
 #short-url-form button[type=submit]:hover {
     filter: brightness(80%);
     cursor: pointer;
+}
+
+#newUrlShowcase {
+    /*display: none;*/
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
 }
 
 

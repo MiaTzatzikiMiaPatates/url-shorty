@@ -2,6 +2,7 @@
 @import url('index.css');
 @import url('table.css');
 @import url('stats.css');
+@import url('modal.css');
 
 :root {
     --black: rgb(39, 38, 38);
@@ -41,13 +42,23 @@ main > h1 {
 button:hover {
     filter: brightness(80%);
     cursor: pointer;
-    transform: scale(1.1);
+    /*transform: scale(1.1);*/
 }
 
-button:active {
-    transform: scale(0.9);
+/*button:active {*/
+/*    transform: scale(0.9);*/
+/*}*/
+
+a:hover {
+    text-decoration: underline;
 }
 
 a[href="#"] {
     font-weight: bold;
+    text-decoration: underline;
+}
+
+#burger-bar {
+    width: 2.5rem;
+    height: 2.5rem;
 }

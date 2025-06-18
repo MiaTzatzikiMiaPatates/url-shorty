@@ -1,6 +1,6 @@
 import statusCodes from "http-status-codes";
 import * as groupsService from "../services/groups-service.js";
-import { validate } from "../utils/validator.js";
+import { validateRequest } from "../utils/validator.js";
 
 export const getAllGroups = (req, res) => {
     const groups = groupsService.getAllGroups();
@@ -14,12 +14,17 @@ export const getAllGroups = (req, res) => {
 export const addGroup = (req, res) => {
     const { name }  = req.body;
 
-    validate(res, {name}, "string");
-    // if (typeof name !== "string" || name === "") {
-    //     res
-    //         .status(statusCodes.BAD_REQUEST)
-    //         .json({error: "Missing required field: name"});
-    // }
+    if (validateRequest(res, { name }, "string")) {
+        return;
+    }
+
+    for (const value of Object.values(groupsService.getAllGroups())) {
+        if (value.name === name) {
+            return res
+                .status(statusCodes.CONFLICT)
+                .json({ error: "Group name already exists." });
+        }
+    }
 
     groupsService.addGroup(name)
 
@@ -33,36 +38,37 @@ export const renameGroup = (req, res) => {
     const { name } = req.body;
     const { id } = req.params;
 
-    validate(res, { name }, "string");
-    validate(res, { id }, "number");
-
-    // if (typeof name !== "string" || name === "") {
-    //     res
-    //         .status(statusCodes.BAD_REQUEST)
-    //         .json({error: "Missing required field: name"});
-    // } else if (isNaN(id)) {
-    //     res
-    //         .status(statusCodes.BAD_REQUEST)
-    //         .json({error: "Parameter id should be of type int"});
-    // }
+    if (validateRequest(res, { name }, "string") || validateRequest(res, { id }, "number")) {
+        return;
+    }
+    for (const value of Object.values(groupsService.getAllGroups())) {
+        if (value.name === name) {
+            return res
+                .status(statusCodes.CONFLICT)
+                .json({ error: "Group name already exists." });
+        }
+    }
 
     groupsService.renameGroup(name, id);
 
-    res.status(statusCodes.NO_CONTENT);
+    res.sendStatus(statusCodes.NO_CONTENT);
 }
 
 
 export const deleteGroup = (req, res) => {
     const { id } = req.params;
 
-    validate(res, { id }, "number");
-    // if (isNaN(id)) {
-    //     res
-    //         .status(statusCodes.BAD_REQUEST)
-    //         .json({error: "Parameter id should be of type int"});
-    // }
+    if (validateRequest(res, { id }, "number")) {
+        return;
+    }
 
-    groupsService.deleteGroup(id);
+    try {
+        groupsService.deleteGroup(id);
+    } catch (SqliteError) {
+        return res
+            .status(statusCodes.CONFLICT)
+            .json({error: "Cannot delete group. Group is referenced to URLs"});
+    }
 
-    res.status(statusCodes.NO_CONTENT);
+    res.sendStatus(statusCodes.NO_CONTENT);
 }

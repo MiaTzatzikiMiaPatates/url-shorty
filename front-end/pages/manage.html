@@ -6,12 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Short</title>
     <link rel="stylesheet" href="../styles/main.css">
+    <script defer src="../scripts/manage.js" type="module"></script>
+    <script defer src="../scripts/hamburger-menu.js"></script>
 </head>
 
 <body>
     <header>
         <nav>
             <a href="../index.html">Short</a>
+
+            <button id="menu-toggle"><img src="../resources/burger-bar.png" id="burger-bar" alt="Burger Bar Icon"></button>
+
+            <div class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form>
+                        <label for="shortUrl">Short URL:</label>
+                        <input type="text" name="shortUrl" id="shortUrl">
+                        <label for="longUrl">Long URL:</label>
+                        <input type="text" name="longUrl" id="longUrl">
+                        <select name="groups" id="groupsSelector">
+                        </select>
+                        <button type="submit" class="modal-submit"></button>
+                    </form>
+                </div>
+            </div>
+
             <ul id="navbar-list">
                 <li><a href="groups.html">Groups</a></li>
                 <li><a href="#">Manage</a></li>
@@ -23,7 +43,7 @@
     <main class="table-data-main">
         <div class="table-data-header">
             <h1>Manage URLs</h1>
-            <button type="submit" class="add-button">+ Shorten New URL</button>
+            <button type="submit" class="add-button" id="add-new-url" onclick="window.location.href='../index.html'">+ Shorten New URL</button>
         </div>
 
         <table class="table-data">
@@ -33,12 +53,12 @@
                 <th>Group</th>
                 <th>Actions</th>
             </tr>
-            <tr>
-                <td>http://short.url</td>
-                <td>http://long.url</td>
-                <td>Random</td>
-                <td><button type="submit" class="edit-button">Edit</button> <button type="submit" class="delete-button">Delete</button></td>
-            </tr>
+<!--            <tr>-->
+<!--                <td>http://short.url</td>-->
+<!--                <td>http://long.url</td>-->
+<!--                <td>Random</td>-->
+<!--                <td><button type="submit" class="edit-button">Edit</button> <button type="submit" class="delete-button">Delete</button></td>-->
+<!--            </tr>-->
         </table>
     </main>
 </body>

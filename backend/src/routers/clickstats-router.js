@@ -1,11 +1,9 @@
 import express from "express";
-import * as clickstatsController from "../controllers/clickstats-controller.js";
+import * as clickStatsController from "../controllers/clickstats-controller.js";
 
 const router = express.Router();
 
-
-router.get("/", clickstatsController.getClickStats);
-
-router.put("/", clickstatsController.incrementClickStats())
+router.get("/", clickStatsController.getClickStats);
+router.put("/:id", clickStatsController.incrementClickStats)
 
 export default router;

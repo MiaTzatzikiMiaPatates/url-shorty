@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/main.css" type="text/css">
     <title>URL Short</title>
     <script defer src="scripts/hamburger-menu.js"></script>
+    <script defer src="scripts/url.js" type="module"></script>
 </head>
 
 <body>
@@ -14,7 +15,7 @@
         <nav>
             <a href="#">Short</a>
 
-            <button id="menu-toggle">---</button>
+            <button id="menu-toggle"><img src="resources/burger-bar.png" id="burger-bar" alt="Burger Bar Icon"></button>
 
             <ul id="navbar-list">
                 <li><a href="pages/groups.html">Groups</a></li>
@@ -29,13 +30,17 @@
         <form id="short-url-form">
             <input type="text" placeholder="Enter URL" id="url-input">
             <div id="url-type-items">
-                <input type="text" placeholder="Custom URL">
-                <select name="groups" id="">
+                <input type="text" placeholder="Custom URL" id="custom-irl-input">
+                <select name="groups" id="groupsSelector">
                     <option value="" selected>Select a Group</option>
                 </select>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" id="urlSubmitButton">Submit</button>
         </form>
+
+        <div id="newUrlShowcase">
+            <p>New URL: <i id="newUrlShowcaseContent"></i></p>
+        </div>
     </main>
 </body>
 

@@ -8,7 +8,7 @@ const createUrlsTable = `
         longUrl TEXT,
         shortUrl TEXT,
         groupId INTEGER,
-        FOREIGN KEY (groupId) REFERENCES Grouops(id)
+        FOREIGN KEY (groupId) REFERENCES Groups(id)
     );
 `
 
@@ -22,7 +22,7 @@ const createGroupsTable = `
 const createClickStatsTable = `
     CREATE TABLE IF NOT EXISTS ClickStats (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        clicks INTEGER,
+        clicks INTEGER DEFAULT 0,
         urlId INTEGER,
         FOREIGN KEY (urlId) REFERENCES Urls(id)
     );

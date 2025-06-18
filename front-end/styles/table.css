@@ -43,7 +43,6 @@
     background-color: aquamarine;
 }
 
-
 @media (max-width: 720px) {
     .table-data {
         width: 100%;
