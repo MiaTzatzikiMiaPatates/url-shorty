@@ -62,3 +62,8 @@ a[href="#"] {
     width: 2.5rem;
     height: 2.5rem;
 }
+
+.input-error {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}

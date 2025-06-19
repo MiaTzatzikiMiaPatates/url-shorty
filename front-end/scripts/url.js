@@ -1,6 +1,6 @@
 import * as groupsRequests from "../api/groupsApi.js";
 import * as urlsRequests from "../api/urlsApi.js";
-import {createSelectOptions} from "../utils/helper.js";
+import * as helpers from "../utils/helper.js";
 
 
 const urlInput = document.querySelector("#url-input");
@@ -8,72 +8,52 @@ const customUrlInput = document.querySelector("#custom-irl-input");
 const groupsSelector = document.querySelector("#groupsSelector");
 const urlSubmitButton = document.querySelector("#urlSubmitButton");
 const newUrlShowcaseContent = document.querySelector("#newUrlShowcaseContent");
+const newUrlShowcase = document.querySelector("#newUrlShowcase");
 
 const groups = await groupsRequests.getAllGroups();
 
-const borderError = "2px solid red";
-const backgroundColorError = "#ffe6e6";
 
-
-
-createSelectOptions(groups);
-
+helpers.createSelectOptions(groups);
 
 urlSubmitButton.addEventListener("click", async (event) => {
     event.preventDefault();
 
-    // invalidField(urlInput);
-    // invalidField(groupsSelector);
+    const isUrlValid = validateField(urlInput);
+    const isGroupSelectorValid = validateField(groupsSelector);
 
-    if (!invalidField(urlInput) && !invalidField(groupsSelector)) {
+    if (isUrlValid && isGroupSelectorValid) {
         const data = {
             longUrl: urlInput.value,
             shortUrl: customUrlInput.value,
             groupId: groupsSelector.value
         }
-
         const response = await urlsRequests.addUrl(data);
 
-        if (!response.ok) {
-            invalidField(customUrlInput);
+        if (response.status === 409) {
+            helpers.toggleFieldError(customUrlInput);
         } else {
-            newUrlShowcaseContent.innerText = customUrlInput.value;
+            helpers.toggleDefaultField(customUrlInput);
+            showNewUrl(customUrlInput.value);
         }
     }
-
-    // if (urlInput.value === "") {
-    //     invalidField(urlInput);
-    // } else if (groupsSelector.value === "") {
-    //     invalidField(groupsSelector);
-    // } else {
-    //     const data = {
-    //         longUrl: urlInput.value,
-    //         shortUrl: customUrlInput.value,
-    //         groupId: groupsSelector.value
-    //     }
-    //
-    //     const response = await urlsRequests.addUrl(data);
-    //
-    //     if (!response.ok) {
-    //         invalidField(customUrlInput);
-    //     } else {
-    //         newUrlShowcaseContent.innerText = customUrlInput.value;
-    //     }
-    // }
 });
 
 
-const invalidField = (field) => {
-
-    if (field.value === "") {
-        field.style.border = borderError;
-        field.style.backgroundColor = backgroundColorError;
-
-        return true;
-    } else {
-        field.style.border = "";
-        field.style.backgroundColor = "";
-
+const validateField = (field) => {
+    if (isFieldEmpty(field)) {
+        helpers.toggleFieldError(field);
         return false;
+    } else {
+        helpers.toggleDefaultField(field);
+        return true;
     }
+}
+
+const isFieldEmpty = (field) => {
+    return field.value.trim() === "";
+}
+
+const showNewUrl = (value) => {
+    newUrlShowcase.style.display = "flex";
+    newUrlShowcaseContent.innerText = value;
 }

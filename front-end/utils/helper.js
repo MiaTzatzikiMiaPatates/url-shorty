@@ -1,5 +1,4 @@
-const borderError = "2px solid red";
-const backgroundColorError = "#ffe6e6";
+const inputErrorClass = "input-error";
 
 export const createSelectOptions = (groups) => {
     const groupsSelector = document.querySelector("#groupsSelector");
@@ -14,9 +13,9 @@ export const createSelectOptions = (groups) => {
 
 
 export const toggleFieldError = (field) => {
-    const defaultBorderColor = field.style.border;
-    const defaultBackgroundColor = field.style.backgroundColor;
+    field.classList.add(inputErrorClass);
+}
 
-    field.style.border = borderError;
-    field.style.backgroundColor = backgroundColorError;
+export const toggleDefaultField = (field) => {
+    field.classList.remove(inputErrorClass);
 }
