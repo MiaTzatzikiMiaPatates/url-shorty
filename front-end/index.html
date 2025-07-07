@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css" type="text/css">
     <title>URL Short</title>
-    <script defer src="scripts/hamburger-menu.js"></script>
-    <script defer src="scripts/url.js" type="module"></script>
+    <script defer src="utils/hamburger-menu.js"></script>
+    <script defer src="scripts/index.js" type="module"></script>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
         <h1>URL Short</h1>
 
         <form id="short-url-form">
-            <input type="text" placeholder="Enter URL" id="url-input">
+            <input type="url" placeholder="Enter URL" id="url-input" required>
             <div id="url-type-items">
                 <input type="text" placeholder="Custom URL" id="custom-irl-input">
                 <select name="groups" id="groupsSelector">
@@ -39,7 +39,7 @@
         </form>
 
         <div id="newUrlShowcase">
-            <p>New URL: <i id="newUrlShowcaseContent"></i></p>
+            <p>New URL: <i ><a id="newUrlShowcaseContent"></a></i></p>
         </div>
     </main>
 </body>

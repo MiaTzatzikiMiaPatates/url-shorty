@@ -1,8 +1,7 @@
 import * as urlsService from "../services/urls-service.js";
 import statusCodes from "http-status-codes";
-import { validateRequest } from "../utils/validator.js";
+import {validateRequest, validateShortUrl} from "../utils/validator.js";
 import { generateShortUrl } from "../utils/generate-url.js";
-import * as url from "node:url";
 
 export const getAllUrls = (req, res) => {
     const data = urlsService.getAllUrls();
@@ -15,14 +14,14 @@ export const getAllUrls = (req, res) => {
 export const addUrl = (req, res) => {
     let { shortUrl, longUrl, groupId } = req.body;
 
-    if (validateRequest(res, { longUrl }, "string") || validateRequest(res, { groupId }, "number")) {
+    if (validateRequest(res, { longUrl }, "string") || validateRequest(res, { groupId }, "number") || validateShortUrl(res, shortUrl)) {
         return;
     }
 
     if (shortUrl.trim() === "") {
         shortUrl = generateShortUrl();
     } else {
-        if (Object.values(urlsService.shortUrlExists(shortUrl))[0] === 1) {
+        if (urlsService.shortUrlExists(shortUrl)) {
             return res
                 .status(statusCodes.CONFLICT)
                 .json({error: "Short URL already exists."});
@@ -42,7 +41,7 @@ export const updateUrl = (req, res) => {
     const { shortUrl, longUrl, groupId } = req.body;
     const { id } = req.params;
 
-    if (validateRequest(res, { shortUrl, longUrl }, "string") || validateRequest(res, { groupId, id }, "number")) {
+    if (validateRequest(res, { shortUrl, longUrl }, "string") || validateRequest(res, { groupId, id }, "number") || validateShortUrl(res, shortUrl)) {
         return;
     }
 

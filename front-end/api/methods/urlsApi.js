@@ -1,5 +1,5 @@
-import { URLS } from "./endpoints.js";
-import * as requests from "./requests.js";
+import { URLS } from "../endpoints.js";
+import * as requests from "../requests.js";
 
 export const getUrlsCountPerGroup = async () => {
     return await requests.getRequest(`${URLS}/groups-count`);

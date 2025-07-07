@@ -11,7 +11,6 @@ main input[type=text]::placeholder {
     font-size: 1rem;
 }
 
-
 #url-type-items {
     display: flex;
     justify-content: center;
@@ -29,8 +28,7 @@ main input[type=text]::placeholder {
 }
 
 
-
-#short-url-form input[type=text], select {
+input[type=text], select, input[type=url] {
     padding: 0.8rem;
     border: 1px solid var(--black);
     border-radius: 5px;

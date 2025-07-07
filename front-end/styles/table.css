@@ -25,23 +25,8 @@
 .table-data th, .table-data td {
     padding: 0.6rem;
     text-align:center;
-} 
-
-.add-button {
-    background-color: dodgerblue;
 }
 
-.rename-button {
-    background-color: gold;
-}
-
-.delete-button {
-    background-color: tomato;
-}
-
-.edit-button {
-    background-color: aquamarine;
-}
 
 @media (max-width: 720px) {
     .table-data {

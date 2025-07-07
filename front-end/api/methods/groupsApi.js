@@ -1,5 +1,5 @@
-import { GROUPS } from "./endpoints.js";
-import * as requests from "./requests.js";
+import { GROUPS } from "../endpoints.js";
+import * as requests from "../requests.js";
 
 
 export const getAllGroups = async () => {

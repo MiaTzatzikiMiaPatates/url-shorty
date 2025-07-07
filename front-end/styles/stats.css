@@ -21,10 +21,17 @@
 }
 
 
-.click-items {
+.stats-item .click-items {
     display: flex;
     justify-content: space-between;
 }
+
+/*.stats-item .old-url-item {*/
+/*    max-width: 50%;*/
+/*    overflow: hidden;*/
+/*    white-space: nowrap;*/
+/*    text-overflow: ellipsis;*/
+/*}*/
 
 
 @media (max-width: 720px) {

@@ -7,7 +7,7 @@
     <title>URL Short</title>
     <link rel="stylesheet" href="../styles/main.css">
     <script defer src="../scripts/manage.js" type="module"></script>
-    <script defer src="../scripts/hamburger-menu.js"></script>
+    <script defer src="../utils/hamburger-menu.js"></script>
 </head>
 
 <body>
@@ -20,11 +20,11 @@
             <div class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
-                    <form>
+                    <form id="modal-url-form">
                         <label for="shortUrl">Short URL:</label>
-                        <input type="text" name="shortUrl" id="shortUrl">
+                        <input type="text" name="shortUrl" id="shortUrl" required>
                         <label for="longUrl">Long URL:</label>
-                        <input type="text" name="longUrl" id="longUrl">
+                        <input type="url" name="longUrl" id="longUrl" required>
                         <select name="groups" id="groupsSelector">
                         </select>
                         <button type="submit" class="modal-submit"></button>
@@ -53,12 +53,6 @@
                 <th>Group</th>
                 <th>Actions</th>
             </tr>
-<!--            <tr>-->
-<!--                <td>http://short.url</td>-->
-<!--                <td>http://long.url</td>-->
-<!--                <td>Random</td>-->
-<!--                <td><button type="submit" class="edit-button">Edit</button> <button type="submit" class="delete-button">Delete</button></td>-->
-<!--            </tr>-->
         </table>
     </main>
 </body>

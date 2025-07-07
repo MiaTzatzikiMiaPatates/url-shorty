@@ -25,3 +25,7 @@ export const getCountUrlsPerGroup = () => {
 export const shortUrlExists = (name) => {
     return db.prepare(`SELECT EXISTS (SELECT * FROM ${tableName} WHERE shortUrl = ?)`).get(name);
 }
+
+export const getUrlByName = (name) => {
+    return db.prepare(`SELECT id, longUrl FROM ${tableName} WHERE shortUrl = ?`).get(name);
+}

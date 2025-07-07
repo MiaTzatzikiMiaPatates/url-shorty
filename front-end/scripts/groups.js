@@ -1,6 +1,6 @@
-import * as groupsRequests from "../api/groupsApi.js";
-import * as urlsRequests from "../api/urlsApi.js";
-import { createButton} from "../utils/element-creator.js";
+import * as groupsRequests from "../api/methods/groupsApi.js";
+import * as urlsRequests from "../api/methods/urlsApi.js";
+import { createButton} from "../utils/helper.js";
 import {toggleModal} from "../utils/modal.js";
 // import {nameAlreadyExists} from "../utils/helper.js"
 

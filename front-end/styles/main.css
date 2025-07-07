@@ -9,7 +9,6 @@
     --text-size: 1.6rem;
 }
 
-
 * {
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -45,9 +44,6 @@ button:hover {
     /*transform: scale(1.1);*/
 }
 
-/*button:active {*/
-/*    transform: scale(0.9);*/
-/*}*/
 
 a:hover {
     text-decoration: underline;
@@ -66,4 +62,24 @@ a[href="#"] {
 .input-error {
     border: 2px solid red;
     background-color: #ffe6e6;
+}
+
+.add-button {
+    background-color: dodgerblue;
+}
+
+.rename-button {
+    background-color: gold;
+}
+
+.delete-button {
+    background-color: tomato;
+}
+
+.edit-button {
+    background-color: aquamarine;
+}
+
+input[type=text]::placeholder {
+    font-size: 1rem;
 }

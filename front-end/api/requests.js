@@ -15,8 +15,6 @@ const request = async (url, method, data = null) => {
             return response
         }
 
-        // const json = await response.json();
-        // return {response:true, status:response.status, data: json};
 
         if (response.headers.get("Content-Type")) {
             return response.json();
