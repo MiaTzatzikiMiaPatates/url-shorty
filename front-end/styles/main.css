@@ -60,8 +60,8 @@ a[href="#"] {
 }
 
 .input-error {
-    border: 2px solid red;
-    background-color: #ffe6e6;
+    border: 2px solid red !important;
+    background-color: #ffe6e6 !important;
 }
 
 .add-button {

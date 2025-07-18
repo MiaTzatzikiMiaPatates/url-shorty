@@ -1,20 +1,20 @@
 import * as groupsRequests from "../api/methods/groupsApi.js";
 import * as urlsRequests from "../api/methods/urlsApi.js";
-import { createButton} from "../utils/helper.js";
+import {createButton, toggleFieldError} from "../utils/helper.js";
 import {toggleModal} from "../utils/modal.js";
-// import {nameAlreadyExists} from "../utils/helper.js"
 
 const table = document.querySelector(".table-data");
 const addGroupButton = document.querySelector("#add-new-group");
-
 const modalSubmitButton = document.querySelector(".modal-submit");
+const modalGroupForm = document.querySelector("#modal-group-form");
 const groupNameInput = document.querySelector("#groupName");
+
+// let currentMode = "";
 
 const groups = await groupsRequests.getAllGroups();
 const urlsCountByGroup = await urlsRequests.getUrlsCountPerGroup();
 
 addGroupButton.addEventListener("click", async () => addGroupEventListener());
-
 
 const createTable = async () => {
 
@@ -54,36 +54,46 @@ const deleteGroupEventListener = async (id) => {
 const renameGroupEventListener = async (id, name) => {
     modalSubmitButton.innerText = "Rename Group";
     groupNameInput.value = name;
+    // currentMode = "rename";
 
-    modalSubmitButton.addEventListener("click", async (event) => {
+
+    modalGroupForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         if (nameAlreadyExists(groupNameInput.value)) {
-            groupNameInput.style.border = "2px solid red";
-            groupNameInput.style.backgroundColor = "#ffe6e6";
+            toggleFieldError(groupNameInput);
         } else {
             await groupsRequests.renameGroup(groupNameInput.value, id);
             location.reload();
         }
+        // } else if (currentMode === "rename") {
+        //     await groupsRequests.renameGroup(groupNameInput.value, id);
+        //     location.reload();
+        // }
     });
 
     toggleModal(groupNameInput);
 }
 
-const addGroupEventListener = async (name) => {
+const addGroupEventListener = async () => {
     modalSubmitButton.innerText = "Add Group";
     groupNameInput.value = "";
+    // currentMode = "add";
 
-    modalSubmitButton.addEventListener("click", async (event) => {
+    modalGroupForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         if (nameAlreadyExists(groupNameInput.value) || groupNameInput.value === "") {
-            groupNameInput.style.border = "2px solid red";
-            groupNameInput.style.backgroundColor = "#ffe6e6";
+            toggleFieldError(groupNameInput);
         } else {
             await groupsRequests.addGroup(groupNameInput.value);
             location.reload();
         }
+        // } else if (currentMode === "add") {
+        //     await groupsRequests.addGroup(groupNameInput.value);
+        //     location.reload();
+        // }
+
     });
 
     toggleModal(groupNameInput);
