@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Short</title>
+    <link rel="icon" type="image/x-icon" href="/resources/url.png">
+    <link rel="stylesheet" href="../styles/main.css">
+    <script defer src="../../dist/scripts/manage.js" type="module"></script>
+    <script defer src="../../dist/utils/hamburger-menu.js" type="module"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="../../index.html">Short</a>
+
+            <button id="menu-toggle"><img src="../resources/burger-bar.png" id="burger-bar" alt="Burger Bar Icon"></button>
+
+            <div class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form id="modal-url-form">
+                        <label for="shortUrl">Short URL:</label>
+                        <input type="text" name="shortUrl" id="shortUrl" required>
+                        <label for="longUrl">Long URL:</label>
+                        <input type="url" name="longUrl" id="longUrl" required>
+                        <select name="groups" id="groupsSelector">
+                        </select>
+                        <button type="submit" class="modal-submit"></button>
+                    </form>
+                </div>
+            </div>
+
+            <ul id="navbar-list">
+                <li><a href="groups.html">Groups</a></li>
+                <li><a href="#">Manage</a></li>
+                <li><a href="stats.html">Stats</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="table-data-main">
+        <div class="table-data-header">
+            <h1>Manage URLs</h1>
+            <button type="submit" class="add-button" id="add-new-url" onclick="window.location.href='../../index.html'">+ Shorten New URL</button>
+        </div>
+
+        <table class="table-data">
+            <tr>
+                <th>Short URL</th>
+                <th>Original URL</th>
+                <th>Group</th>
+                <th>Actions</th>
+            </tr>
+        </table>
+    </main>
+</body>
+
+</html>
