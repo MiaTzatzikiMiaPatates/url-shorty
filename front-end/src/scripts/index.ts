@@ -5,7 +5,7 @@ import {BASE_URL} from "../api/endpoints.js";
 import {Url} from "../models/url";
 
 const urlInput = document.querySelector("#url-input") as HTMLInputElement;
-const customUrlInput = document.querySelector("#custom-irl-input") as HTMLInputElement;
+const customUrlInput = document.querySelector("#custom-url-input") as HTMLInputElement;
 const groupsSelector = document.querySelector("#groupsSelector") as HTMLInputElement;
 const newUrlShowcaseContent = document.querySelector("#newUrlShowcaseContent") as HTMLElement;
 const newUrlShowcase = document.querySelector("#newUrlShowcase") as HTMLElement;
