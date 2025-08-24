@@ -6,10 +6,10 @@
     "build:backend": "cd backend && npm run build",
     "build:frontend": "cd front-end && npm run build",
     "build": "concurrently \"npm run build:backend\" \"npm run build:frontend\"",
-    "start": "concurrently --kill-others  \"cd backend && npm run start\" \"cd front-end && npm run start\"",
+    "start": "concurrently \"cd backend && npm run start\" \"cd front-end && npm run start\"",
     "start:frontend":"cd front-end && npm run start",
     "start:backend": "cd backend && npm run start",
-    "fresh:install": "npm install && concurrently \"cd backend && npm install\" \"cd front-end && npm install\""
+    "fresh:install": "npm install -y && concurrently \"cd backend && npm install -y\" \"cd front-end && npm install -y\""
   },
   "repository": {
     "type": "git",
