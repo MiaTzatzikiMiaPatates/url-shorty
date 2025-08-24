@@ -20,20 +20,13 @@ Simple URL shortener made with Typescript.
 
 ## Installation and deployment
 
-Install
+#### Install
+`npm run fresh:install`
 
-`
-npm run fresh:install
-`
+#### Build
 
-Build
+`npm run build`
 
-`
-npm run build
-`
+#### Start
 
-Start
-
-`
-npm run start
-`
+`npm run start`
