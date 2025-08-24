@@ -21,16 +21,19 @@ Simple URL shortener made with Typescript.
 ## Installation and deployment
 
 Install
+
 `
 npm run fresh:install
 `
 
 Build
+
 `
 npm run build
 `
 
 Start
+
 `
 npm run start
 `
