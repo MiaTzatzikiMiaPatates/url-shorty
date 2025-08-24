@@ -1,5 +1,5 @@
 # URL Shorty
-Simple URL shortener made with Typescript.
+Simple URL shortener made with Typescript, SQLite and Zod for schema validation.
 
 ## Features
 - Shortening URL
