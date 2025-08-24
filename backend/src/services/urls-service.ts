@@ -30,10 +30,6 @@ export const shortUrlExists = (name: string): boolean => {
     return Object.values(urlsModel.shortUrlExists(name) as Record<string, number>)[0] === 1;
 }
 
-export const shortUrlExistsById = (id: number, name: string) => {
-    return Object.values(urlsModel.shortUrlExistsById(id, name) as Record<string, number>)[0] === 1;
-}
-
 export const getUrlByName = (name: string) => {
     return urlsModel.getUrlByName(name);
 }

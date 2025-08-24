@@ -26,10 +26,6 @@ export const shortUrlExists = (name: string) => {
     return db.prepare(`SELECT EXISTS (SELECT * FROM ${tableName} WHERE shortUrl = ?)`).get(name);
 }
 
-export const shortUrlExistsById = (id: number, name: string) => {
-    return db.prepare(`SELECT EXISTS (SELECT * FROM ${tableName} WHERE id = ? and shortUrl = ?)`).get(id, name);
-}
-
 export const getUrlByName = (name: string)=> {
     return db.prepare(`SELECT id, longUrl FROM ${tableName} WHERE shortUrl = ?`).get(name);
 }

@@ -48,12 +48,6 @@ export const updateUrl = (req: Request, res: Response) => {
         const {shortUrl, longUrl, groupId} = BaseUrlSchema.parse(req.body);
         const {id} = IdUrlSchema.parse(req.params);
 
-        if (urlsService.shortUrlExistsById(id, shortUrl)) {
-            return res
-                .status(statusCodes.CONFLICT)
-                .json({error: "Short URL already exists."});
-        }
-
         urlsService.updateUrl(shortUrl, longUrl, groupId, id);
 
         res.sendStatus(statusCodes.NO_CONTENT);

@@ -21,6 +21,10 @@ export const errorHandler = (error: unknown, res: Response, message?: string) =>
             res
                 .status(statusCodes.CONFLICT)
                 .json({error: message})
+        } else if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
+            res
+                .status(statusCodes.CONFLICT)
+                .json({error: "Value has to be unique"});
         }
     } else {
         res
