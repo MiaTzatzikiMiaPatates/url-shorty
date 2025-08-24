@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others  \"cd backend && npm run start\" \"cd front-end && npm run build && npm run start\"",
+    "start": "concurrently --kill-others  \"cd backend && npm run build && npm run start\" \"cd front-end && npm run build && npm run start\"",
     "start:frontend":"cd front-end && npm run start",
     "start:backend": "cd backend && npm run start",
-    "install": "concurrently --kill-others \"cd backend && npm i -y\" \"cd front-end && npm i -y\""
+    "fresh:install": "npm install -y && concurrently --kill-others \"cd backend && npm i -y\" \"cd front-end && npm i -y\""
   },
   "repository": {
     "type": "git",
