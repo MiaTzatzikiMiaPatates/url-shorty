@@ -9,7 +9,7 @@
     "start": "concurrently --kill-others  \"cd backend && npm run start\" \"cd front-end && npm run start\"",
     "start:frontend":"cd front-end && npm run start",
     "start:backend": "cd backend && npm run start",
-    "fresh:install": "npm install -y && concurrently --kill-others \"cd backend && npm i -y\" \"cd front-end && npm i -y\""
+    "fresh:install": "npm install && concurrently \"cd backend && npm install\" \"cd front-end && npm install\""
   },
   "repository": {
     "type": "git",
