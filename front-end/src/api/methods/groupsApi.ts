@@ -1,8 +1,9 @@
 import { GROUPS } from "../endpoints.js";
 import * as requests from "../requests.js";
+import {Group} from "../../models/group";
 
 
-export const getAllGroups = async () => {
+export const getAllGroups = async (): Promise<Group[]> => {
     return await requests.getRequest(GROUPS);
 }
 

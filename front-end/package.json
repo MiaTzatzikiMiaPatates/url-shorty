@@ -1,12 +1,11 @@
 {
   "scripts": {
     "build": "tsc",
-    "watch": "tsc --watch",
-    "start": "cd public && serve"
+    "watch:build": "tsc --watch",
+    "start": "serve"
   },
   "devDependencies": {
-    "serve": "^14.2.4",
-    "ts-node-dev": "^2.0.0",
+    "serve": "^10.0.2",
     "typescript": "^5.8.3"
   }
 }

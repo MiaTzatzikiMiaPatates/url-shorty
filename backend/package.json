@@ -1,23 +1,32 @@
 {
   "name": "url-short-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "db": "node src/config/db.js"
+    "start": "node dist/index.js",
+    "dev": "nodemon dist/index.js",
+    "db": "node dist/config/db.js",
+    "build": "tsc",
+    "build:watch": "tsc --watch"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/http-status-codes": "^1.2.0",
+    "nodemon": "^3.1.10",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@types/node": "^24.0.15",
     "better-sqlite3": "^11.10.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "http-status-codes": "^2.3.0"
+    "http-status-codes": "^2.3.0",
+    "zod": "^4.0.5"
   }
 }

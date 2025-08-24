@@ -8,7 +8,7 @@ export const createSelectOptions = (data, elementSelector) => {
         elementSelector.appendChild(option);
     });
 };
-export const toggleFieldError = (field) => {
+export const toggleFieldError = (field, border = true) => {
     field.classList.add(inputErrorClass);
 };
 export const toggleDefaultField = (field) => {

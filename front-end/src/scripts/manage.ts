@@ -5,8 +5,7 @@ import {toggleModal} from "../utils/modal.js";
 import {BASE_URL} from "../api/endpoints.js";
 import * as helpers from "../utils/helper.js";
 import {Url} from "../models/url.js";
-import {Group} from "../models/group";
-
+import {Group} from "../models/group.js";
 
 const table = document.querySelector(".table-data") as HTMLTableElement;
 const shortUrlInput = document.querySelector("#shortUrl") as HTMLInputElement;
@@ -15,9 +14,11 @@ const groupsSelector = document.querySelector("#groupsSelector") as HTMLInputEle
 const modalSubmitButton = document.querySelector(".modal-submit") as HTMLButtonElement;
 const modalUrlForm = document.querySelector("#modal-url-form") as HTMLFormElement;
 
-
 const urls: Url[] = await urlsRequests.getAllUrls();
 const groups: Group[] = await groupsRequests.getAllGroups();
+
+let oldShortUrlValue: string;
+let idToChange: number;
 
 const createTable = async (): Promise<void> => {
     urls.forEach((url: Url): void => {
@@ -25,19 +26,19 @@ const createTable = async (): Promise<void> => {
         const longUrl: string = url.longUrl;
         const groupName: string = groups.find((group) => group.id === url.groupId)!.name;
         const groupId: number = url.groupId;
-        const urlId: number = url.id;
+        const urlId: number = url.id as number;
         const link: string = BASE_URL + shortUrl;
 
-        const row = table.insertRow(-1);
+        const row: HTMLTableRowElement = table.insertRow(-1);
         row.setAttribute("id", urlId.toString());
 
-        const shortUrlCell = row.insertCell(0);
+        const shortUrlCell: HTMLTableCellElement = row.insertCell(0);
         shortUrlCell.append(createAnchorElement(link, undefined, undefined, link))
 
-        const longUrlCell = row.insertCell(1);
+        const longUrlCell: HTMLTableCellElement = row.insertCell(1);
         longUrlCell.append(createAnchorElement(longUrl, undefined, undefined, formatLongUrl(longUrl)));
 
-        const groupCell = row.insertCell(2);
+        const groupCell: HTMLTableCellElement = row.insertCell(2);
         groupCell.innerText = groupName;
 
         const buttonsCell: HTMLTableCellElement = row.insertCell(3);
@@ -45,54 +46,59 @@ const createTable = async (): Promise<void> => {
         const deleteButton: HTMLButtonElement = createButton("delete-button", "Delete");
         buttonsCell.append(editButton, deleteButton);
 
-        editButton.addEventListener("click", async () => editUrlEventListener(urlId.toString(), shortUrl, longUrl, groupId.toString()));
-        deleteButton.addEventListener("click", async () => deleteUrlEventListener(urlId.toString()));
+        editButton.addEventListener("click", async () => editUrlEventListener(urlId, shortUrl, longUrl, groupId));
+        deleteButton.addEventListener("click", async () => deleteUrlEventListener(urlId));
     });
+
     createSelectOptions(groups, groupsSelector);
 }
 
-
-const editUrlEventListener = async (id: string, shortUrl: string, longUrl: string, groupId: string): Promise<void> => {
+const editUrlEventListener = async (id: number, shortUrl: string, longUrl: string, groupId: number): Promise<void> => {
     modalSubmitButton.innerText = "Edit URL";
     shortUrlInput.value = shortUrl;
     longUrlInput.value = longUrl;
-    groupsSelector.value = groupId;
+    groupsSelector.value = groupId.toString();
 
-    const oldShortUrlValue = shortUrl;
-
-    modalUrlForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        if ((urls.some(element => element.shortUrl === shortUrlInput.value) && oldShortUrlValue !== shortUrlInput.value) || shortUrlInput.value === "") {
-            helpers.toggleFieldError(shortUrlInput);
-        } else {
-            const data = {
-                shortUrl: shortUrlInput.value,
-                longUrl: longUrlInput.value,
-                groupId: groupsSelector.value
-            }
-            const response = await urlsRequests.editUrl(id, data)
-
-            if (response.status === 414) {
-                helpers.toggleFieldError(shortUrlInput);
-            } else {
-                location.reload();
-            }
-        }
-    });
+    oldShortUrlValue = shortUrl;
+    idToChange = id;
 
     toggleModal(shortUrlInput);
 }
 
-export const deleteUrlEventListener = async (id: string): Promise<void> => {
+
+const editUrlModal = async (event: Event): Promise<void> => {
+    event.preventDefault();
+
+    if ((urls.some(element => element.shortUrl === shortUrlInput.value) && oldShortUrlValue !== shortUrlInput.value) || shortUrlInput.value === "") {
+        helpers.toggleFieldError(shortUrlInput);
+    } else {
+        const data: Url = {
+            shortUrl: shortUrlInput.value,
+            longUrl: longUrlInput.value,
+            groupId: Number(groupsSelector.value)
+        }
+
+        const response = await urlsRequests.editUrl(idToChange, data)
+
+        if (response.status === 414 || response.status === 409) {
+            helpers.toggleFieldError(shortUrlInput);
+        } else {
+            location.reload();
+        }
+    }
+}
+
+
+export const deleteUrlEventListener = async (id: number): Promise<void> => {
     const response = await urlsRequests.deleteUrl(id);
 
     if (!response.ok) {
         alert("Something went VERY wrong");
     } else {
-        location.reload();
+        document.getElementById(id.toString())?.remove();
     }
 }
 
+modalUrlForm.addEventListener("submit", async (event): Promise<void> => editUrlModal(event));
 
 await createTable();

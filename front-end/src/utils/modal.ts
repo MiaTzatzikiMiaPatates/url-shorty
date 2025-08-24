@@ -7,6 +7,7 @@ export const toggleModal = (inputField: HTMLInputElement) => {
     if (!modal || !span) {
         return;
     }
+
     modal.style.display = "block";
     // const defaultBorderStyle = inputField.style.border;
     // const defaultBackgroundColor = inputField.style.backgroundColor;

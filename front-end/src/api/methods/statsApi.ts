@@ -1,7 +1,8 @@
 import { CLICKSTATS } from "../endpoints.js";
 import * as requests from "../requests.js";
+import {ClickStats} from "../../models/clickstats";
 
-export const getAllStats = async () => {
+export const getAllStats = async (): Promise<ClickStats[]> => {
     return await requests.getRequest(`${CLICKSTATS}`)
 }
 

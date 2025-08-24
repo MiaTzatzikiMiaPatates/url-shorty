@@ -12,6 +12,8 @@ const modalSubmitButton = document.querySelector(".modal-submit");
 const modalUrlForm = document.querySelector("#modal-url-form");
 const urls = await urlsRequests.getAllUrls();
 const groups = await groupsRequests.getAllGroups();
+let oldShortUrlValue;
+let idToChange;
 const createTable = async () => {
     urls.forEach((url) => {
         const shortUrl = url.shortUrl;
@@ -32,8 +34,8 @@ const createTable = async () => {
         const editButton = createButton("edit-button", "Edit");
         const deleteButton = createButton("delete-button", "Delete");
         buttonsCell.append(editButton, deleteButton);
-        editButton.addEventListener("click", async () => editUrlEventListener(urlId.toString(), shortUrl, longUrl, groupId.toString()));
-        deleteButton.addEventListener("click", async () => deleteUrlEventListener(urlId.toString()));
+        editButton.addEventListener("click", async () => editUrlEventListener(urlId, shortUrl, longUrl, groupId));
+        deleteButton.addEventListener("click", async () => deleteUrlEventListener(urlId));
     });
     createSelectOptions(groups, groupsSelector);
 };
@@ -41,29 +43,30 @@ const editUrlEventListener = async (id, shortUrl, longUrl, groupId) => {
     modalSubmitButton.innerText = "Edit URL";
     shortUrlInput.value = shortUrl;
     longUrlInput.value = longUrl;
-    groupsSelector.value = groupId;
-    const oldShortUrlValue = shortUrl;
-    modalUrlForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        if ((urls.some(element => element.shortUrl === shortUrlInput.value) && oldShortUrlValue !== shortUrlInput.value) || shortUrlInput.value === "") {
+    groupsSelector.value = groupId.toString();
+    oldShortUrlValue = shortUrl;
+    idToChange = id;
+    toggleModal(shortUrlInput);
+};
+const editUrlModal = async (event) => {
+    event.preventDefault();
+    if ((urls.some(element => element.shortUrl === shortUrlInput.value) && oldShortUrlValue !== shortUrlInput.value) || shortUrlInput.value === "") {
+        helpers.toggleFieldError(shortUrlInput);
+    }
+    else {
+        const data = {
+            shortUrl: shortUrlInput.value,
+            longUrl: longUrlInput.value,
+            groupId: Number(groupsSelector.value)
+        };
+        const response = await urlsRequests.editUrl(idToChange, data);
+        if (response.status === 414 || response.status === 409) {
             helpers.toggleFieldError(shortUrlInput);
         }
         else {
-            const data = {
-                shortUrl: shortUrlInput.value,
-                longUrl: longUrlInput.value,
-                groupId: groupsSelector.value
-            };
-            const response = await urlsRequests.editUrl(id, data);
-            if (response.status === 414) {
-                helpers.toggleFieldError(shortUrlInput);
-            }
-            else {
-                location.reload();
-            }
+            location.reload();
         }
-    });
-    toggleModal(shortUrlInput);
+    }
 };
 export const deleteUrlEventListener = async (id) => {
     const response = await urlsRequests.deleteUrl(id);
@@ -71,7 +74,8 @@ export const deleteUrlEventListener = async (id) => {
         alert("Something went VERY wrong");
     }
     else {
-        location.reload();
+        document.getElementById(id.toString())?.remove();
     }
 };
+modalUrlForm.addEventListener("submit", async (event) => editUrlModal(event));
 await createTable();

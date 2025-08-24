@@ -12,7 +12,7 @@ export const createSelectOptions = (data: any[], elementSelector: HTMLElement): 
 }
 
 
-export const toggleFieldError = (field: HTMLElement): void => {
+export const toggleFieldError = (field: HTMLElement, border: boolean = true): void => {
     field.classList.add(inputErrorClass);
 }
 

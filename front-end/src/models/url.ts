@@ -1,5 +1,5 @@
 export interface Url {
-    id: number,
+    id?: number,
     longUrl: string,
     shortUrl: string,
     groupId: number

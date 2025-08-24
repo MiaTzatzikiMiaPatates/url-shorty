@@ -18,7 +18,7 @@ shortUrlForm.addEventListener("submit", async (event) => {
         const data = {
             longUrl: urlInput.value,
             shortUrl: customUrlInput.value,
-            groupId: groupsSelector.value
+            groupId: Number(groupsSelector.value)
         };
         const response = await urlsRequests.addUrl(data);
         if (response.status === 409 || response.status === 414) {

@@ -3,6 +3,7 @@ import * as urlsRequests from "../api/methods/urlsApi.js";
 import {createButton, toggleFieldError} from "../utils/helper.js";
 import {toggleModal} from "../utils/modal.js";
 import {Group} from "../models/group.js";
+import {UrlsGroupCount} from "../models/urls-group-count.js";
 
 const table = document.querySelector(".table-data") as HTMLTableElement;
 const addGroupButton = document.querySelector("#add-new-group") as HTMLButtonElement;
@@ -10,35 +11,38 @@ const modalSubmitButton = document.querySelector(".modal-submit") as HTMLButtonE
 const modalGroupForm = document.querySelector("#modal-group-form") as HTMLFormElement;
 const groupNameInput = document.querySelector("#groupName") as HTMLInputElement;
 
-// let currentMode = "";
+let currentMode: string;
+let groupIdToRename: number;
 
 const groups: Group[]  = await groupsRequests.getAllGroups();
-const urlsCountByGroup = await urlsRequests.getUrlsCountPerGroup();
+const urlsCountByGroup: UrlsGroupCount[] = await urlsRequests.getUrlsCountPerGroup();
 
 addGroupButton.addEventListener("click", async () => addGroupEventListener());
+modalGroupForm.addEventListener("submit", async (event) => modalGroupEventListener(event));
 
 const createTable = async () => {
 
-    for (const [key, value] of Object.entries(groups)) {
-        const groupId = value.id;
+    groups.forEach((group) => {
+        const groupId = group.id;
 
-        let row = table.insertRow(-1);
+        const row = table.insertRow(-1);
         row.setAttribute("id", groupId.toString())
+        const rowId = Number(row.id);
 
-        let nameCell = row.insertCell(0);
-        nameCell.innerText = value.name;
+        const nameCell = row.insertCell(0);
+        nameCell.innerText = group.name;
 
-        let urlsCell = row.insertCell(1)
-        urlsCell.innerText = getUrlsCountById(groupId);
+        const urlsCell = row.insertCell(1)
+        urlsCell.innerText = getUrlsCountById(groupId).toString();
 
-        let buttonCell = row.insertCell(2);
-        let renameButton = createButton("rename-button", "Rename");
-        let deleteButton = createButton("delete-button", "Delete");
+        const buttonCell = row.insertCell(2);
+        const renameButton = createButton("rename-button", "Rename");
+        const deleteButton = createButton("delete-button", "Delete");
         buttonCell.append(renameButton, deleteButton);
 
-        renameButton.addEventListener("click", async  () => renameGroupEventListener(Number(row.id), value.name));
-        deleteButton.addEventListener("click", async () => deleteGroupEventListener(Number(row.id)));
-    }
+        renameButton.addEventListener("click", async  () => renameGroupEventListener(rowId, group.name));
+        deleteButton.addEventListener("click", async () => deleteGroupEventListener(rowId));
+    });
 }
 
 const deleteGroupEventListener = async (id: number) => {
@@ -46,7 +50,8 @@ const deleteGroupEventListener = async (id: number) => {
     const row = document.getElementById(`${id}`) as HTMLTableRowElement;
 
     if (!response.ok) {
-        row.style.backgroundColor = "#ffe6e6";
+        toggleFieldError(row, false);
+        // row.style.backgroundColor = "#ffe6e6";
     } else {
         location.reload();
     }
@@ -55,22 +60,8 @@ const deleteGroupEventListener = async (id: number) => {
 const renameGroupEventListener = async (id: number, name: string) => {
     modalSubmitButton.innerText = "Rename Group";
     groupNameInput.value = name;
-    // currentMode = "rename";
-
-    modalGroupForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        if (nameAlreadyExists(groupNameInput.value)) {
-            toggleFieldError(groupNameInput);
-        } else {
-            await groupsRequests.renameGroup(groupNameInput.value, id);
-            location.reload();
-        }
-        // } else if (currentMode === "rename") {
-        //     await groupsRequests.renameGroup(groupNameInput.value, id);
-        //     location.reload();
-        // }
-    });
+    groupIdToRename = id;
+    currentMode = "rename";
 
     toggleModal(groupNameInput);
 }
@@ -78,43 +69,33 @@ const renameGroupEventListener = async (id: number, name: string) => {
 const addGroupEventListener = async () => {
     modalSubmitButton.innerText = "Add Group";
     groupNameInput.value = "";
-    // currentMode = "add";
-
-    modalGroupForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        if (nameAlreadyExists(groupNameInput.value) || groupNameInput.value === "") {
-            toggleFieldError(groupNameInput);
-        } else {
-            await groupsRequests.addGroup(groupNameInput.value);
-            location.reload();
-        }
-        // } else if (currentMode === "add") {
-        //     await groupsRequests.addGroup(groupNameInput.value);
-        //     location.reload();
-        // }
-
-    });
+    currentMode = "add";
 
     toggleModal(groupNameInput);
 }
 
-const nameAlreadyExists = (name: string) => {
-    for (const [key, value] of Object.entries(groups)) {
-        if (value.name.toLowerCase() === name.toLowerCase()) {
-            return true;
+
+const modalGroupEventListener = async (event: SubmitEvent) => {
+    event.preventDefault();
+
+    if (groupNameAlreadyExists(groupNameInput.value) || groupNameInput.value === "") {
+        toggleFieldError(groupNameInput);
+    } else {
+        if (currentMode === "add") {
+            await groupsRequests.addGroup(groupNameInput.value);
+        } else if (currentMode === "rename") {
+            await groupsRequests.renameGroup(groupNameInput.value, groupIdToRename);
         }
+        location.reload();
     }
-    return false;
+}
+
+const groupNameAlreadyExists = (name: string) => {
+    return groups.find((group) => group.name.toLowerCase() === name.toLowerCase());
 }
 
 const getUrlsCountById = (id: number) => {
-    for (const [key, value] of Object.entries(urlsCountByGroup)) {
-        if (value.groupId  === id) {
-            return value.urlCount;
-        }
-    }
-    return 0;
+    return urlsCountByGroup.find((element) => element.groupId === id)?.urlCount ?? 0;
 }
 
 

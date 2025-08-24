@@ -2,6 +2,7 @@ import * as groupsRequests from "../api/methods/groupsApi.js";
 import * as urlsRequests from "../api/methods/urlsApi.js";
 import * as helpers from "../utils/helper.js";
 import {BASE_URL} from "../api/endpoints.js";
+import {Url} from "../models/url";
 
 const urlInput = document.querySelector("#url-input") as HTMLInputElement;
 const customUrlInput = document.querySelector("#custom-irl-input") as HTMLInputElement;
@@ -22,12 +23,14 @@ shortUrlForm.addEventListener("submit", async (event) => {
     const isGroupSelectorValid = validateField(groupsSelector);
 
     if (isUrlValid && isGroupSelectorValid) {
-        const data = {
+        const data: Url = {
             longUrl: urlInput.value,
             shortUrl: customUrlInput.value,
-            groupId: groupsSelector.value
-        }
+            groupId: Number(groupsSelector.value)
+        };
+
         const response = await urlsRequests.addUrl(data);
+
         if (response.status === 409 || response.status === 414) {
             helpers.toggleFieldError(customUrlInput);
         } else {
@@ -47,7 +50,6 @@ const validateField = (field: HTMLInputElement): boolean => {
         return true;
     }
 }
-
 
 const isFieldEmpty = (field: HTMLInputElement): boolean => {
     return field.value.trim() === "";

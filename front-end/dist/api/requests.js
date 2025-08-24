@@ -1,16 +1,13 @@
 import { RequestMethods } from "./request-methods.js";
 const request = async (url, method, data = null) => {
     try {
-        const options = { method: method, headers: {} };
+        const options = { method: method };
         if (data !== null) {
             options.headers = { "Content-Type": "application/json" };
             options.body = JSON.stringify(data);
         }
         const response = await fetch(url, options);
-        if (!response.ok) {
-            return response;
-        }
-        if (response.headers.get("Content-Type")) {
+        if (response.headers.get("Content-Type")?.includes("application/json") && response.ok) {
             return response.json();
         }
         else {
