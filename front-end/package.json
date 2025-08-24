@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "tsc",
-    "watch:build": "tsc --watch",
+    "build:watch": "tsc --watch",
     "start": "npx serve"
   },
   "devDependencies": {

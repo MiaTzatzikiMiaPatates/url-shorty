@@ -3,7 +3,7 @@ import * as urlsRequests from "../api/methods/urlsApi.js";
 import * as helpers from "../utils/helper.js";
 import { BASE_URL } from "../api/endpoints.js";
 const urlInput = document.querySelector("#url-input");
-const customUrlInput = document.querySelector("#custom-irl-input");
+const customUrlInput = document.querySelector("#custom-url-input");
 const groupsSelector = document.querySelector("#groupsSelector");
 const newUrlShowcaseContent = document.querySelector("#newUrlShowcaseContent");
 const newUrlShowcase = document.querySelector("#newUrlShowcase");

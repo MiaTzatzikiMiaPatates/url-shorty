@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon dist/index.js",
-    "db": "node dist/config/db.js",
     "build": "tsc",
-    "build:watch": "tsc --watch"
+    "build:watch": "tsc --watch",
+    "build:database": "node dist/config/db.js"
   },
   "author": "",
   "license": "ISC",
